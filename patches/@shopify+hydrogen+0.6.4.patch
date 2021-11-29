@@ -1,0 +1,144 @@
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/client.d.ts b/node_modules/@shopify/hydrogen/dist/esnext/client.d.ts
+index 9bea566..aafb3d7 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/client.d.ts
++++ b/node_modules/@shopify/hydrogen/dist/esnext/client.d.ts
+@@ -7,3 +7,7 @@ export * from './foundation/ServerStateProvider';
+ export { ServerStateRouter } from './foundation/Router/ServerStateRouter.client';
+ export { Helmet } from 'react-helmet-async';
+ export * from './utilities';
++export * from './hooks/useShopQuery';
++export { ShopifyServerProvider } from '@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider';
++export { DefaultRoutes } from './foundation/Router';
++export { LocalizationProvider } from '@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider';
+\ No newline at end of file
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/client.js b/node_modules/@shopify/hydrogen/dist/esnext/client.js
+index 9bea566..5375b5f 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/client.js
++++ b/node_modules/@shopify/hydrogen/dist/esnext/client.js
+@@ -7,3 +7,7 @@ export * from './foundation/ServerStateProvider';
+ export { ServerStateRouter } from './foundation/Router/ServerStateRouter.client';
+ export { Helmet } from 'react-helmet-async';
+ export * from './utilities';
++export * from './hooks/useShopQuery';
++export { ShopifyServerProvider } from './foundation/ShopifyProvider/ShopifyServerProvider';
++export { DefaultRoutes } from './foundation/Router';
++export { LocalizationProvider } from '@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider';
+\ No newline at end of file
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.server.d.ts b/node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.d.ts
+similarity index 100%
+rename from node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.server.d.ts
+rename to node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.d.ts
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.server.js b/node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.js
+similarity index 74%
+rename from node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.server.js
+rename to node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.js
+index 7751cfe..73c9e09 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.server.js
++++ b/node_modules/@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider.js
+@@ -1,7 +1,7 @@
+ import React from 'react';
+-import LocalizationClientProvider from './LocalizationClientProvider.client';
+-import { useShopQuery } from '../../hooks/useShopQuery';
+-import { Localization } from '../../graphql/graphql-constants';
++import LocalizationClientProvider from '@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationClientProvider.client';
++import { useShopQuery } from '@shopify/hydrogen/dist/esnext/hooks/useShopQuery';
++import { Localization } from '@shopify/hydrogen/dist/esnext/graphql/graphql-constants';
+ /**
+  * The `LocalizationProvider` component automatically queries the Storefront API's
+  * [`localization`](/api/storefront/reference/common-objects/queryroot) field
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.server.d.ts b/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.d.ts
+similarity index 59%
+rename from node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.server.d.ts
+rename to node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.d.ts
+index bf26f06..fb51604 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.server.d.ts
++++ b/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.d.ts
+@@ -1,6 +1,6 @@
+ import { ReactElement } from 'react';
+-import { ShopifyConfig } from '../../types';
+-import { ReactQueryHydrationContext } from './types';
++import { ShopifyConfig } from '@shopify/hydrogen/dist/esnext/types';
++import { ReactQueryHydrationContext } from '@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/types';
+ export declare function ShopifyServerProvider({ children, shopifyConfig, hydrationContext, }: {
+     children: ReactElement;
+     shopifyConfig: ShopifyConfig;
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.server.js b/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.js
+similarity index 61%
+rename from node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.server.js
+rename to node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.js
+index 0c5aacb..9b3ad72 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.server.js
++++ b/node_modules/@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider.js
+@@ -1,6 +1,6 @@
+ import React from 'react';
+-import { ShopifyProvider } from './ShopifyProvider';
+-import { QueryProvider } from '../../hooks/useQuery';
++import { ShopifyProvider } from '@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyProvider';
++import { QueryProvider } from '@shopify/hydrogen/dist/esnext/hooks/useQuery';
+ export function ShopifyServerProvider({ children, shopifyConfig, hydrationContext, }) {
+     return (React.createElement(ShopifyProvider, { shopifyConfig: shopifyConfig },
+         React.createElement(QueryProvider, { hydrationContext: hydrationContext }, children)));
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.d.ts b/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.d.ts
+index 9e5c511..b72b9b3 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.d.ts
++++ b/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.d.ts
+@@ -1,5 +1,5 @@
+ export { ShopifyProvider, DEFAULT_API_VERSION } from './ShopifyProvider';
+-export { ShopifyServerProvider } from './ShopifyProvider/ShopifyServerProvider.server';
++export { ShopifyServerProvider } from '@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider';
+ export * from './ServerStateProvider';
+ export { useShop } from './useShop';
+ export { DefaultRoutes } from './Router';
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.js b/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.js
+index 9e5c511..b72b9b3 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.js
++++ b/node_modules/@shopify/hydrogen/dist/esnext/foundation/index.js
+@@ -1,5 +1,5 @@
+ export { ShopifyProvider, DEFAULT_API_VERSION } from './ShopifyProvider';
+-export { ShopifyServerProvider } from './ShopifyProvider/ShopifyServerProvider.server';
++export { ShopifyServerProvider } from '@shopify/hydrogen/dist/esnext/foundation/ShopifyProvider/ShopifyServerProvider';
+ export * from './ServerStateProvider';
+ export { useShop } from './useShop';
+ export { DefaultRoutes } from './Router';
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/framework/server-components.js b/node_modules/@shopify/hydrogen/dist/esnext/framework/server-components.js
+index 12246fc..92d7c4a 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/framework/server-components.js
++++ b/node_modules/@shopify/hydrogen/dist/esnext/framework/server-components.js
+@@ -6,7 +6,7 @@ export async function proxyClientComponent({ id, src, }) {
+     var _a;
+     const defaultComponentName = (_a = id.split('/').pop()) === null || _a === void 0 ? void 0 : _a.split('.').shift();
+     // Modify the import ID to avoid infinite wraps
+-    const importFrom = `${id}?no-proxy`;
++    const importFrom =  `${id}?no-proxy`;
+     await init;
+     if (!src) {
+         src = await fs.readFile(id, 'utf-8');
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/hooks/useShopQuery/hooks.js b/node_modules/@shopify/hydrogen/dist/esnext/hooks/useShopQuery/hooks.js
+index 13cdd3e..de5b5e8 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/hooks/useShopQuery/hooks.js
++++ b/node_modules/@shopify/hydrogen/dist/esnext/hooks/useShopQuery/hooks.js
+@@ -8,9 +8,9 @@ import { getConfig } from '../../framework/config';
+  * \> It must be a descendent of a `ShopifyProvider` component.
+  */
+ export function useShopQuery({ query, variables = {}, cache = {}, }) {
+-    if (isClient()) {
+-        throw new Error('Shopify Storefront API requests should only be made from the server.');
+-    }
++    // if (isClient()) {
++    //     throw new Error('Shopify Storefront API requests should only be made from the server.');
++    // }
+     const { storeDomain, storefrontToken, graphqlApiVersion } = useShop();
+     const body = graphqlRequestBody(query, variables);
+     const url = `https://${storeDomain}/api/${graphqlApiVersion}/graphql.json`;
+diff --git a/node_modules/@shopify/hydrogen/dist/esnext/index.d.ts b/node_modules/@shopify/hydrogen/dist/esnext/index.d.ts
+index c309f28..9a2a864 100644
+--- a/node_modules/@shopify/hydrogen/dist/esnext/index.d.ts
++++ b/node_modules/@shopify/hydrogen/dist/esnext/index.d.ts
+@@ -3,6 +3,6 @@ export * from './components/';
+ export * from './hooks/';
+ export { flattenConnection, fetchBuilder, graphqlRequestBody, decodeShopifyId, isClient, } from './utilities';
+ export { Helmet } from 'react-helmet-async';
+-export { LocalizationProvider } from './components/LocalizationProvider/LocalizationProvider.server';
++export { LocalizationProvider } from '@shopify/hydrogen/dist/esnext/components/LocalizationProvider/LocalizationProvider';
+ export * from './hooks/useShopQuery';
+ export { CartQuery } from './graphql/graphql-constants';
