@@ -1,16 +1,29 @@
-import {ShopifyServerProvider, DefaultRoutes} from '@shopify/hydrogen';
+import {ShopifyServerProvider, DefaultRoutes} from '@shopify/hydrogen/client';
 import {Switch} from 'react-router-dom';
 import {Suspense} from 'react';
 
 import shopifyConfig from '../shopify.config';
 
-import DefaultSeo from './components/DefaultSeo.server';
-import NotFound from './components/NotFound.server';
+import DefaultSeo from './components/DefaultSeo.client';
+import NotFound from './components/NotFound.client';
 import CartProvider from './components/CartProvider.client';
 import LoadingFallback from './components/LoadingFallback';
 
 export default function App({...serverState}) {
-  const pages = import.meta.globEager('./pages/**/*.server.[jt]sx');
+  // const pages = import.meta.globEager('./pages/**/*.client.[jt]sx');
+  const pages = []
+  // const pages = {
+  //   './pages/Index.client.jsx': {
+  //     __proto__: null,
+  //     [Symbol.toStringTag]: 'Module',
+  //     default: Index,
+  //   },
+  //   './pages/collections/[handle].client.jsx': {
+  //     __proto__: null,
+  //     [Symbol.toStringTag]: 'Module',
+  //     default: Collection,
+  //   },
+  // };
 
   return (
     <Suspense fallback={<LoadingFallback />}>

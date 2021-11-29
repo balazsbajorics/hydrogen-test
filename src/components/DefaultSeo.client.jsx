@@ -1,4 +1,4 @@
-import {useShopQuery} from '@shopify/hydrogen';
+import {useShopQuery} from '@shopify/hydrogen/client';
 import gql from 'graphql-tag';
 
 import Seo from './Seo.client';

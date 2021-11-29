@@ -1,4 +1,4 @@
-import {flattenConnection, useShopQuery} from '@shopify/hydrogen';
+import {flattenConnection, useShopQuery} from '@shopify/hydrogen/client';
 import gql from 'graphql-tag';
 
 export default function Sitemap({response}) {

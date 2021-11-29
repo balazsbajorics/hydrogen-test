@@ -1,9 +1,9 @@
 import {useParams} from 'react-router-dom';
-import {useShopQuery, RawHtml} from '@shopify/hydrogen';
+import {useShopQuery, RawHtml} from '@shopify/hydrogen/client';
 import gql from 'graphql-tag';
 
-import Layout from '../../components/Layout.server';
-import NotFound from '../../components/NotFound.server';
+import Layout from '../../components/Layout.client';
+import NotFound from '../../components/NotFound.client';
 
 export default function Page() {
   const {handle} = useParams();

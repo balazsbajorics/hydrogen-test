@@ -4,13 +4,13 @@ import {
   ProductProviderFragment,
   Image,
   Link,
-} from '@shopify/hydrogen';
+} from '@shopify/hydrogen/client';
 import gql from 'graphql-tag';
 
-import Layout from '../components/Layout.server';
-import FeaturedCollection from '../components/FeaturedCollection.server';
-import ProductCard from '../components/ProductCard.server';
-import Welcome from '../components/Welcome.server';
+import Layout from '../components/Layout.client';
+import FeaturedCollection from '../components/FeaturedCollection.client';
+import ProductCard from '../components/ProductCard.client';
+import Welcome from '../components/Welcome.client';
 
 function GradientBackground() {
   return (

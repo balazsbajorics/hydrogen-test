@@ -4,20 +4,21 @@ import {
   useShopQuery,
   flattenConnection,
   RawHtml,
-} from '@shopify/hydrogen';
+} from '@shopify/hydrogen/client';
 import {useParams} from 'react-router-dom';
 import gql from 'graphql-tag';
 
 import LoadMoreProducts from '../../components/LoadMoreProducts.client';
-import Layout from '../../components/Layout.server';
-import ProductCard from '../../components/ProductCard.server';
-import NotFound from '../../components/NotFound.server';
+import Layout from '../../components/Layout.client';
+import ProductCard from '../../components/ProductCard.client';
+import NotFound from '../../components/NotFound.client';
 
 export default function Collection({
   country = {isoCode: 'US'},
   collectionProductCount = 24,
 }) {
   const {handle} = useParams();
+  // const handle = 'freestyle-collection'
   const {data} = useShopQuery({
     query: QUERY,
     variables: {

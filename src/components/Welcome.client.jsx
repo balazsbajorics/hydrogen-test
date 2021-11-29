@@ -1,4 +1,4 @@
-import {useShopQuery, flattenConnection, Link} from '@shopify/hydrogen';
+import {useShopQuery, flattenConnection, Link} from '@shopify/hydrogen/client';
 import gql from 'graphql-tag';
 
 function ExternalIcon() {

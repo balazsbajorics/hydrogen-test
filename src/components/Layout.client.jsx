@@ -3,11 +3,11 @@ import {
   useShopQuery,
   flattenConnection,
   LocalizationProvider,
-} from '@shopify/hydrogen';
+} from '@shopify/hydrogen/client';
 import gql from 'graphql-tag';
 
 import Header from './Header.client';
-import Footer from './Footer.server';
+import Footer from './Footer.client';
 import {useCartUI} from './CartUIProvider.client';
 import Cart from './Cart.client';
 
